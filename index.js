@@ -25,6 +25,7 @@ const baseUrl = 'https://mzamin.com/news.php?news='
 let startNumber = 1
 let additionalNumber = 0
 const retry_delay = 1800000
+let consoleLog = ''
 
 app.get('/', function (req, res) {
     res.json('This is my webscraper')
@@ -64,6 +65,7 @@ async function scrapeAndInsert() {
                     additionalNumber = 0
                     await new Promise(resolve => setInterval(resolve, retry_delay))
                     console.log(`news no. ${startNumber} not found at ${new Date()}. waiting for ${retryDelay / 1000} seconds...`);
+                    consoleLlog = `news no. ${startNumber} not found at ${new Date()}. waiting for ${retryDelay / 1000} seconds...`
                 }
             } else {
                 const resultDocument = {
@@ -92,8 +94,8 @@ async function scrapeAndInsert() {
 scrapeAndInsert()
 
 app.get('/results', (req, res) => {
-
     res.json({ message: 'Scraping in progress. Check console logs for updates.' })
+    res.send(consoleLog)
 })
 
 app.listen(PORT, () => { console.log(`server running on PORT ${PORT}`) })
