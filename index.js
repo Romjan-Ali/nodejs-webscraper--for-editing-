@@ -80,6 +80,9 @@ async function scrapeAndInsert() {
 
                 startNumber++
             }
+            app.get('/console-log', (req, res) => {
+                res.json({ message: 'trying to insert data do mongodb' })
+            })
         }
 
         await client.close()
