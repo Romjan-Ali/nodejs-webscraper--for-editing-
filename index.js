@@ -93,9 +93,8 @@ async function scrapeAndInsert() {
     }
 }
 
-scrapeAndInsert()
-
 app.get('/results', (req, res) => {
+    scrapeAndInsert()
     res.json({ message: 'Scraping in progress. Check console logs for updates.' })
 })
 
